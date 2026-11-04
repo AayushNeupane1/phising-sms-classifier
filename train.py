@@ -5,7 +5,7 @@ from pathlib import Path
 import joblib
 import matplotlib
 
-matplotlib.use("Agg")  
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -28,7 +28,6 @@ def load_data(path: Path) -> pd.DataFrame:
     """Load the tab-separated dataset (columns: label, message)."""
     df = pd.read_csv(path, sep="\t", header=None, names=["label", "message"])
 
-    # Map text labels to a binary target: 1 = spam, 0 = legitimate ("ham").
     df["target"] = (df["label"] == "spam").astype(int)
     return df
 
@@ -37,7 +36,6 @@ def build_model() -> Pipeline:
     """TF-IDF features -> Multinomial Naive Bayes, as a single pipeline."""
     return Pipeline(
         [
-            
             (
                 "tfidf",
                 TfidfVectorizer(
@@ -70,21 +68,18 @@ def main() -> None:
     model = build_model()
     model.fit(X_train, y_train)
 
-    #evaluating 
     y_pred = model.predict(X_test)
     report = classification_report(
         y_test, y_pred, target_names=["legitimate", "spam"]
     )
     print("\n" + report)
 
-    
     report_path = RESULTS_DIR / "report.txt"
     report_path.write_text(
         "Phishing / Spam SMS Classifier — evaluation on held-out test set\n"
         f"Test set size: {len(y_test)} messages\n\n" + report
     )
 
-    
     cm = confusion_matrix(y_test, y_pred)
     disp = ConfusionMatrixDisplay(
         confusion_matrix=cm, display_labels=["legitimate", "spam"]

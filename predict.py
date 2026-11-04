@@ -6,7 +6,7 @@ with a confidence score.
 
 Usage:
     python predict.py "Congratulations! You've won a $1000 gift card. Click here to claim"
-    python predict.py            # then type messages interactively
+    python predict.py
 """
 
 import sys
@@ -34,11 +34,9 @@ def main() -> None:
     model = load_model()
 
     if len(sys.argv) > 1:
-        # Classify the message passed on the command line.
         classify(model, " ".join(sys.argv[1:]))
         return
 
-    # Interactive mode.
     print("Type a message to classify (blank line to quit):")
     while True:
         try:
