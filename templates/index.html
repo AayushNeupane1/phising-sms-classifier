@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SMS Spam Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="card">
+        <p class="eyebrow">SMS SECURITY TOOL</p>
+        <h1>Phishing / Spam SMS Classifier</h1>
+        <p class="intro">Paste a message below to check whether it looks like spam.</p>
+
+        <form method="post">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" maxlength="1000"
+                      placeholder="Type or paste an SMS message...">{{ message }}</textarea>
+            <button type="submit">Classify message</button>
+        </form>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if result %}
+        <section class="result {% if result.is_spam %}spam{% else %}legitimate{% endif %}">
+            <p class="result-label">Prediction</p>
+            <h2>{{ result.label }}</h2>
+            <p>Confidence: <strong>{{ result.confidence }}</strong></p>
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

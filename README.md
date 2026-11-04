@@ -45,6 +45,11 @@ would be especially important because missed phishing messages can be costly.
 │   ├── report.txt            # Evaluation metrics
 │   └── confusion_matrix.png  # Model error visualization
 ├── predict.py                # Classify new SMS messages
+├── app.py                    # Flask web application
+├── templates/
+│   └── index.html            # Web interface
+├── static/
+│   └── style.css             # Web interface styles
 ├── train.py                  # Train and evaluate the model
 ├── requirements.txt          # Python dependencies
 └── README.md
@@ -78,6 +83,17 @@ python predict.py
 
 The trained model is saved as `model.joblib`. This generated artifact is
 ignored by Git and can be recreated at any time by running `train.py`.
+
+## Web interface
+
+After training the model, start the Flask app:
+
+```bash
+python app.py
+```
+
+Open `http://127.0.0.1:5000` in a browser, enter an SMS message, and select
+**Classify message** to view the prediction and confidence score.
 
 ## Future improvements
 

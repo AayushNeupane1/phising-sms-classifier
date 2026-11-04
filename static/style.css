@@ -1,0 +1,98 @@
+:root {
+    color: #172033;
+    background: #eef2f7;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    margin: 0;
+    place-items: center;
+}
+
+.card {
+    width: min(90%, 620px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 12px 35px rgb(23 32 51 / 12%);
+}
+
+.eyebrow,
+.result-label {
+    margin: 0 0 0.5rem;
+    color: #53658a;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+.intro {
+    color: #536070;
+}
+
+label {
+    display: block;
+    margin: 1.8rem 0 0.5rem;
+    font-weight: bold;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 1px solid #cbd4e1;
+    border-radius: 8px;
+    font: inherit;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.85rem;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    background: #3156c9;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #2444a8;
+}
+
+.result,
+.error {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+}
+
+.result h2 {
+    margin: 0.25rem 0;
+}
+
+.result p:last-child {
+    margin-bottom: 0;
+}
+
+.legitimate {
+    background: #e8f7ee;
+    color: #17653a;
+}
+
+.spam,
+.error {
+    background: #fff0f0;
+    color: #a12828;
+}
