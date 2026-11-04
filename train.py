@@ -1,20 +1,11 @@
-"""
-Phishing / Spam SMS Classifier — training script.
 
-Trains a TF-IDF + Multinomial Naive Bayes model to flag spam ("smishing"/
-phishing-style) SMS messages, evaluates it on a held-out test set, and saves
-the trained model, a metrics report, and a confusion-matrix plot.
-
-Usage:
-    python train.py
-"""
 
 from pathlib import Path
 
 import joblib
 import matplotlib
 
-matplotlib.use("Agg")  # render plots without a display (e.g. on a server)
+matplotlib.use("Agg")  
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -36,6 +27,7 @@ MODEL_FILE = ROOT / "model.joblib"
 def load_data(path: Path) -> pd.DataFrame:
     """Load the tab-separated dataset (columns: label, message)."""
     df = pd.read_csv(path, sep="\t", header=None, names=["label", "message"])
+
     # Map text labels to a binary target: 1 = spam, 0 = legitimate ("ham").
     df["target"] = (df["label"] == "spam").astype(int)
     return df
@@ -67,7 +59,6 @@ def main() -> None:
     print(f"Loaded {len(df)} messages "
           f"({df['target'].sum()} spam, {(df['target'] == 0).sum()} legitimate)")
 
-    # Hold out 20% for testing. stratify keeps the spam/ham ratio in both sets.
     X_train, X_test, y_train, y_test = train_test_split(
         df["message"],
         df["target"],
