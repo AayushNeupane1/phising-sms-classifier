@@ -1,0 +1,11 @@
+Phishing / Spam SMS Classifier — evaluation on held-out test set
+Test set size: 1115 messages
+
+              precision    recall  f1-score   support
+
+  legitimate       0.97      1.00      0.98       966
+        spam       1.00      0.78      0.88       149
+
+    accuracy                           0.97      1115
+   macro avg       0.98      0.89      0.93      1115
+weighted avg       0.97      0.97      0.97      1115
