@@ -1,4 +1,4 @@
-Phishing / Spam SMS Classifier — evaluation on held-out test set
+Phishing / Spam SMS Classifier - evaluation on held-out test set
 Test set size: 1115 messages
 
               precision    recall  f1-score   support

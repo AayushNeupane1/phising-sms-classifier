@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 
 import joblib
@@ -76,8 +74,9 @@ def main() -> None:
 
     report_path = RESULTS_DIR / "report.txt"
     report_path.write_text(
-        "Phishing / Spam SMS Classifier — evaluation on held-out test set\n"
-        f"Test set size: {len(y_test)} messages\n\n" + report
+        "Phishing / Spam SMS Classifier - evaluation on held-out test set\n"
+        f"Test set size: {len(y_test)} messages\n\n" + report,
+        encoding="utf-8",
     )
 
     cm = confusion_matrix(y_test, y_pred)
@@ -85,7 +84,7 @@ def main() -> None:
         confusion_matrix=cm, display_labels=["legitimate", "spam"]
     )
     disp.plot(cmap="Blues", colorbar=False)
-    plt.title("Confusion matrix — spam detection")
+    plt.title("Confusion matrix (spam detection)")
     plt.tight_layout()
     plt.savefig(RESULTS_DIR / "confusion_matrix.png", dpi=130)
     print(f"Saved metrics to {report_path}")
