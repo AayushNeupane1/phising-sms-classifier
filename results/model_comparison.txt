@@ -1,0 +1,7 @@
+Model comparison - stratified 5-fold CV on the training split
+Spam is the positive class; values are mean +/- std across folds.
+
+Model                         accuracy       precision          recall              f1
+--------------------------------------------------------------------------------------
+Multinomial NB           0.970+/-0.003   0.998+/-0.004   0.779+/-0.022   0.875+/-0.015
+Logistic Regression      0.981+/-0.001   0.931+/-0.011   0.926+/-0.016   0.929+/-0.006
