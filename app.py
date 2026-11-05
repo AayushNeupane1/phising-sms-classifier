@@ -11,12 +11,21 @@ app = Flask(__name__)
 
 
 def load_model():
+    """Return (pipeline, threshold, spam_index).
+
+    Supports both the current bundle format (a dict with the tuned
+    threshold) and an older plain-pipeline model, which falls back to 0.5.
+    """
     if not MODEL_FILE.exists():
         raise RuntimeError("Model not found. Run 'python train.py' first.")
-    return joblib.load(MODEL_FILE)
+
+    obj = joblib.load(MODEL_FILE)
+    if isinstance(obj, dict):
+        return obj["pipeline"], obj["threshold"], obj.get("spam_index", 1)
+    return obj, 0.5, 1
 
 
-model = load_model()
+pipeline, THRESHOLD, SPAM_INDEX = load_model()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -33,12 +42,12 @@ def index():
         elif len(message) > MAX_MESSAGE_LENGTH:
             error = f"Message must be {MAX_MESSAGE_LENGTH} characters or fewer."
         else:
-            label_index = int(model.predict([message])[0])
-            confidence = float(model.predict_proba([message])[0][label_index])
+            spam_score = float(pipeline.predict_proba([message])[0][SPAM_INDEX])
+            is_spam = spam_score >= THRESHOLD
             result = {
-                "label": "SPAM" if label_index == 1 else "Legitimate",
-                "confidence": f"{confidence:.1%}",
-                "is_spam": label_index == 1,
+                "label": "SPAM" if is_spam else "Legitimate",
+                "spam_score": f"{spam_score:.1%}",
+                "is_spam": is_spam,
             }
 
     return render_template(
@@ -46,6 +55,7 @@ def index():
         message=message,
         result=result,
         error=error,
+        threshold=f"{THRESHOLD:.0%}",
     )
 
 

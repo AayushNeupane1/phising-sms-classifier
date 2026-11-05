@@ -27,7 +27,8 @@
         <section class="result {% if result.is_spam %}spam{% else %}legitimate{% endif %}">
             <p class="result-label">Prediction</p>
             <h2>{{ result.label }}</h2>
-            <p>Confidence: <strong>{{ result.confidence }}</strong></p>
+            <p>Spam score: <strong>{{ result.spam_score }}</strong>
+               <span class="muted">(flagged at or above {{ threshold }})</span></p>
         </section>
         {% endif %}
     </main>
